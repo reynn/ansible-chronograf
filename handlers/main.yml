@@ -1,0 +1,8 @@
+---
+- name: restart chronograf
+  become: yes
+  service:
+    name: "{{ chronograf_service_name }}"
+    state: restarted
+  tags:
+    - chronograf

@@ -1,0 +1,6 @@
+---
+# vars file for chronograf (Ubuntu specific)
+
+chronograf_packages:
+  - "chronograf={{ chronograf_version }}*"
+chronograf_group: chronograf

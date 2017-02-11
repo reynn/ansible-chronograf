@@ -1,0 +1,28 @@
+---
+- name: Download Chronograf GPG key
+  apt_key:
+    url: https://repos.influxdata.com/chronograf.key
+    state: present
+  become: yes
+
+- name: Ensure apt-transport-https is installed
+  apt:
+    name: apt-transport-https
+    state: present
+  become: yes
+
+- name: Configure Chronograf APT repository
+  apt_repository:
+    repo: 'deb https://repos.influxdata.com/ubuntu {{ ansible_distribution_release|lower }} stable'
+    state: present
+  become: yes
+
+
+- name: Install Chronograf packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
+  with_items:
+    - "{{ chronograf_packages }}"
+  become: yes

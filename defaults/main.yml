@@ -1,0 +1,8 @@
+---
+chronograf_version: 1.2.0
+chronograf_signing_key_url: "https://repos.influxdata.com/chronograf.key"
+chronograf_yum_repo_baseurl: "https://repos.influxdata.com/centos/{{ ansible_distribution_major_version }}/{{ ansible_architecture }}/stable"
+
+chronograf_http_bind_address: ":8086"
+chronograf_local_db: chronograf.db
+chronograf_query_response_bytes_limit: 2500000

@@ -1,0 +1,25 @@
+---
+# tasks file for chronograf
+- name: Include distribution specific variables
+  include_vars: "{{ ansible_os_family|lower() }}.yml"
+
+- name: "Install for {{ ansible_distribution }}"
+  include: "{{ ansible_os_family|lower() }}/install.yml"
+
+- name: Create Chronograf configuration file
+  become: yes
+  template:
+    src: chronograf.conf.j2
+    dest: /etc/chronograf/chronograf.conf
+    owner: root
+    group: "{{ chronograf_group }}"
+    mode: 0644
+  notify:
+    - restart chronograf
+
+- name: Ensure Chronograf service is started and enabled on boot
+  become: yes
+  service:
+    name: "{{ chronograf_service_name }}"
+    enabled: yes
+    state: started

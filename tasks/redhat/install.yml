@@ -1,0 +1,16 @@
+---
+- name: Add InfluxData repository
+  yum_repository:
+    name: InfluxData
+    baseurl: "{{ chronograf_yum_repo_baseurl }}"
+    gpgkey: {{ chronograf_signing_key_url }}
+    gpgcheck: yes
+
+- name: Install Chronograf packages
+  yum:
+    name: "{{ item }}"
+    update_cache: yes
+    state: present
+  with_items:
+    - "{{ chronograf_packages }}"
+  become: yes
